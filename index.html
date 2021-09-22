@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="app.css">
+</head>
+
+<body>
+
+    <main>
+
+        <div class="container">
+            <div class="timetable-img text-center">
+                <img src="img/content/timetable.png" alt="">
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered text-center">
+                    <thead>
+                        <tr class="bg-light-gray">
+                            <th class="text-uppercase">Lecturer</th>
+                            <th class="text-uppercase">URL</th>
+                            <th class="text-uppercase">Password (click to copy) </th>
+                        </tr>
+                    </thead>
+                    <tbody id="tr_container">
+                        <!-- <tr>
+                            <td>
+                                ოლეგი
+                            </td>
+                            <td>
+                                <div class="btn btn-primary">
+                                    <a href="" target="_blank" class="text-decoration-none">
+                                        Open meeting
+                                    </a>
+                                </div>
+                            </td>
+
+                            <td>
+                                123121
+                            </td>
+
+                        </tr> -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+</body>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+
+<script>
+    // let table = {
+    //     "ოლეგი ": "https://us04web.zoom.us/j/4934510883",
+    //     "ოთარი ": "",
+    //     "ქეთევან შავგულიძე ": "",
+    //     "ნათელა არჩვაძე": "",
+    //     "თეიმურაზი": "",
+    //     "ცისანა გავაშელი": "",
+    //     "თამარ ბურჭულაძე": "",
+    //     "ზურაბ შერმადინი": ""
+    // }
+
+
+    let table = [{
+        "name": "ოლეგი",
+        "url": "https://us04web.zoom.us/j/4934510883",
+        "pwd": ""
+    }, {
+        "name": "ოთარი",
+        "url": "https://us04web.zoom.us/j/8186885318",
+        "pwd": "8186885318"
+    }, {
+        "name": "ქეთევან შავგულიძე",
+        "url": "https://us04web.zoom.us/j/9517872656",
+        "pwd": "12345678"
+    }, {
+        "name": "ნათელა არჩვაძე",
+        "url": "https://us04web.zoom.us/j/7805931753",
+        "pwd": ""
+    }, {
+        "name": "თეიმურაზ ნადარეიშვილი",
+        "url": "https://us04web.zoom.us/j/7375886740",
+        "pwd": "628078"
+    }, {
+        "name": "ცისანა გავაშელი",
+        "url": "https://us04web.zoom.us/j/5268407305",
+        "pwd": "282228"
+    }, {
+        "name": "თამარ ბურჭულაძე",
+        "url": "https://us04web.zoom.us/j/2779928027",
+        "pwd": "3ttbQc"
+    }, {
+        "name": "ზურაბ შერმადინი",
+        "url": "https://us04web.zoom.us/j/4400662176",
+        "pwd": ""
+    }]
+
+    function copyTxtListener() {
+        $('.pwd').click(e => {
+            let txt = $(e.target).get(0);
+
+            $(e.target).next(".message").removeClass("d-none")
+            setTimeout(() => {
+                $(e.target).next(".message").addClass("d-none")
+            }, 500)
+
+            navigator.clipboard.writeText(txt.innerText)
+        })
+    }
+
+    function render() {
+        table.forEach(element => {
+
+            let html =
+                `
+                <tr>
+                    <td>
+                        ${element.name}
+                    </td>
+                    <td>
+                        <a href="${element.url}" target="_blank">
+                            <span class="btn btn-outline-warning text-dark">
+                                Open meeting
+                            </span>
+                        </a>
+                    </td>
+
+                    <td class="pwd-container">
+            `;
+
+            if (`${element.pwd}`.length > 0) {
+                html += `<button class="btn btn-outline-dark pwd"> ${element.pwd} </button>
+                
+                    <span class="message d-none px-3 py-2 bg-info text-white ms-3">copied!</span>
+                `
+            }
+
+            html +=
+                `</td>
+
+            </tr>
+            `;
+
+
+
+            $("#tr_container").append($(html))
+        });
+    }
+
+
+    $(document).ready(() => {
+        render();
+        copyTxtListener();
+
+    })
+</script>
+
+
+
+</html>
